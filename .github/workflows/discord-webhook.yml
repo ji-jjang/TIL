@@ -2,7 +2,7 @@ name: Send Discord Message
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 1 * * 0' # Asia/Seoul(UTC+9)
   workflow_dispatch:
 
 jobs:
@@ -14,5 +14,5 @@ jobs:
         run: |
           curl -X POST \
           -H "Content-Type: application/json" \
-          -d "{\"content\": \"This is a scheduled message from GitHub Actions!\"}" \
+          -d "{\"content\": \"주간 목표를 꼼꼼히 작성하여 공유해 주세요!\"}" \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
