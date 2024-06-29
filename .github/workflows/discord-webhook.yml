@@ -1,0 +1,17 @@
+name: Send Discord Message
+
+on:
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  sendMessage:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Send Message to Discord Channel!
+        run: |
+          curl -X POST \
+          -H "Content-Type: application/json" \
+          -d "{\"content\": \"This is a scheduled message from GitHub Actions!\"}" \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
