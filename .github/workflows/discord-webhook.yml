@@ -2,7 +2,7 @@ name: Send Discord Message
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   sendMessage:
