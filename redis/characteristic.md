@@ -40,5 +40,25 @@ docker exec -it my-redis redis-cli
 ```
 - redis.conf 파일을 읽어 loglevel을 warning으로 변경한 것을 확인할 수 있다.
 
+## 레디스 환경
+### maxclients
+- 레디스의 기본 maxclients 설정값은 10'000이다.이는 **레디스 프로세스에서 받아들일 수 있는 최대 클라이언트의 개수**를 의미한다. 
+- 레디스 프로세스 내부적으로 사용하기 위해 예약한 파일 디스크립터 수는 32개 이므로 **레디스의 최대 클라이언트 수를 기본값인 10'000으로 지정하고 싶으면 서버의 파일 디스크립터 수를 최소 10'032 이상으로 지정**해야 한다.
+- redis linux에 접속하여 파일 디스크립터 수를 확인하면 충분히 설정되어 있다.
+```bash
+docker exec -it my-redis bash
+ulimit -n 
+
+// root@fb735456788f:/# ulimit -n
+// 1048576
+```
+- 만약에 해당 값이 작게 설정되어 있다면(AWS Ubuntu의 경우 기본값 1024) `/etc/security/limits.conf`에서 파일디스크립터 수를 늘려주자.
+```bash
+# limits.conf
+* hard nofile 100000
+* soft nofile 100000
+```
+- 이렇게 설정하면 파일디스크립터 수가 늘어난 것을 확인할 수 있다.
+
 # 참고자료
 - 개발자를 위한 레디스 - 김가림
