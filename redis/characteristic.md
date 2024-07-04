@@ -4,13 +4,12 @@
     - [2. 단순성](#2-단순성)
     - [3. 고가용성](#3-고가용성)
     - [4. 확장성](#4-확장성)
-  - [도커로 Redis 실행하기](#도커로-redis-실행하기)
   - [레디스 환경](#레디스-환경)
     - [1. maxclients](#1-maxclients)
-    - [2. THP(Transparent Huge Page) 비활성화](#2-thptransparent-huge-page-비활성화)
-    - [3. vm.overcommit\_memory = 1로 변경](#3-vmovercommit_memory--1로-변경)
-    - [4. somaxconn(socket max connection), syn\_backlog 설정 변경](#4-somaxconnsocket-max-connection-syn_backlog-설정-변경)
-    - [5. redis 설정 파일 기초 옵션](#5-redis-설정-파일-기초-옵션)
+    - [2. THP(Transparent Huge Page)](#2-thptransparent-huge-page)
+    - [3. vm.overcommit\_memory = 1](#3-vmovercommit_memory--1)
+    - [4. somaxconn(socket max connection), syn\_backlog](#4-somaxconnsocket-max-connection-syn_backlog)
+    - [5. redis.conf](#5-redisconf)
       - [port](#port)
       - [bind](#bind)
       - [protected-mode](#protected-mode)
@@ -19,6 +18,7 @@
   - [Redis 실행](#redis-실행)
     - [1. 프로세스 시작과 종료](#1-프로세스-시작과-종료)
     - [2. 레디스 접속](#2-레디스-접속)
+    - [3. 도커로 Redis 실행하기](#3-도커로-redis-실행하기)
 - [참고자료](#참고자료)
 
 # Redis (Remote Dictionary Server)
@@ -34,34 +34,6 @@
 ### 4. 확장성
 - 손쉬운 수평적 확장 가능, **데이터는 클러스터 내에서 자동으로 샤딩된 후 저장되며, 여러 개의 복제본**이 생성될 수 있음
 - 데이터 분리는 데이터베이스 레이어에서 처리되며 애플리케이션에서는 대상 데이터가 어떤 샤드에 있는지 신경 쓰지 않아도 됨
-
-## 도커로 Redis 실행하기
-```bash
-$ docker run --name my-redis -d -p 6379:6379 redis
-$ docker exec -it my-redis redis-cli
-```
-- redis 설정 정보 확인하기
-```bash
-127.0.0.1:6379> info
-```
-- redis.conf 파일을 이용해서 비밀번호, 포트, 바인딩 등을 설정하여 레디스를 실행할 수 있다.
-- 아래와 같은 간단한 redis파일을 만들고 실행해보자.
-```bash
-// redis.conf 
-bind 127.0.0.1
-port 6379
-loglevel warning
-
-// Docker command
-$ docker run --name my-redis -v ./redis.conf:/usr/local/etc/redis/redis.conf -d -p 6379:6379 redis redis-server /usr/local/etc/redis/redis.conf
-$ docker exec -it my-redis redis-cli
-
-// Redis command
-$ 127.0.0.1:6379> config get loglevel
-1) "loglevel"
-2) "warning"
-```
-- redis.conf 파일을 읽어 loglevel을 warning으로 변경한 것을 확인할 수 있다.
 
 ## 레디스 환경
 ### 1. maxclients
@@ -81,7 +53,7 @@ $ ulimit -n
 ```
 - 이렇게 설정하면 파일디스크립터 수가 늘어난 것을 확인할 수 있다.
 
-### 2. THP(Transparent Huge Page) 비활성화
+### 2. THP(Transparent Huge Page)
 - 리눅스는 메모리를 페이지 단위로 관리하며 기본 페이지는 4096바이트로 고정되어 있다. 
 - 메모리 크기가 커질수록 페이지를 관리하는 테이블인 TLB의 크기도 커지기에 페이지를 크게 만든 뒤 자동으로 관리하는 THP 기능이 도입되었다.
 - **하지만, 레디스 같은 데이터베이스 애플리케이션에는 해당 기능을 사용할 때 퍼포먼스가 떨어지고, 레이턴시가 올라가는 현상**이 발생한다.
@@ -105,7 +77,7 @@ fi
 $ chmod +x /etc/rc.d/rc.local
 ```
 
-### 3. vm.overcommit_memory = 1로 변경
+### 3. vm.overcommit_memory = 1
 ```bash
 $ cat /proc/sys/vm/overcommit_memory // 기본적으로 0으로 설정되어 있다.
 
@@ -118,7 +90,7 @@ $ sysctl overcommit_memory=1 // 재부팅 없이 설정 적용
 - 이때 **COW(Copy On Write)**로 동작하는데, 부모 프로세스와 자식 프로세스가 동일한 메모리 페이지를 공유하다가 레디스의 데이터가 변경될 때마다 메모리 페이지를 복사하기 때문에 데이터 변경이 많이 발생하면 메모리 사용량이 빠르게 증가할 수 있다.
 - 메모리를 순간적으로 초과해 할당해야 하는 상황이 발생할 수 있으며 이를 위해 해당 옵션을 1로 설정하는 것이다. 0으로 설정하면 필요한 메모리를 할당받지 못해 제대로 동작하지 못할 수 있다. 물론 이 경우 linux OutOfMemory Killer 가 동작하는 것을 인지해야 한다.
 
-### 4. somaxconn(socket max connection), syn_backlog 설정 변경
+### 4. somaxconn(socket max connection), syn_backlog
 - 레디스 설정 파일의 tcp-backlog 파라미터는 레디스 인스턴스가 클라이언트가 통신할 때 사용하는 tcp backlog 큐의 크기를 지정한다.
 - 이때 redis.conf에서 지정한 tcp-backlog 값은 서버의 somaxconn과 syn_backlog 값보다 클 수 없다.
 ```bash
@@ -145,7 +117,7 @@ sysctl net.ipv4.tcp_max_syn_backlog==1024
 sysctl net.core.somaxconn=1024
 ```
 
-### 5. redis 설정 파일 기초 옵션
+### 5. redis.conf
 - 레디스 설정파일은 간단한 형태로 구성된다.
 ```bash
 keyword argument1 argument2
@@ -191,6 +163,35 @@ $ PING // 사용자가 연결을 끊을 때까지 계속 레디스 서버에 접
 $ redis-cli PING // 레디스 서버에 특정 커맨드를 수행시킨 뒤 종료시키고 싶다면 커맨드라인 모드로 사용한다.
 
 ```
+
+### 3. 도커로 Redis 실행하기
+```bash
+$ docker run --name my-redis -d -p 6379:6379 redis
+$ docker exec -it my-redis redis-cli
+```
+- redis 설정 정보 확인하기
+```bash
+127.0.0.1:6379> info
+```
+- redis.conf 파일을 이용해서 비밀번호, 포트, 바인딩 등을 설정하여 레디스를 실행할 수 있다.
+- 아래와 같은 간단한 redis파일을 만들고 실행해보자.
+```bash
+// redis.conf 
+bind 127.0.0.1
+port 6379
+loglevel warning
+
+// Docker command
+$ docker run --name my-redis -v ./redis.conf:/usr/local/etc/redis/redis.conf -d -p 6379:6379 redis redis-server /usr/local/etc/redis/redis.conf
+$ docker exec -it my-redis redis-cli
+
+// Redis command
+$ 127.0.0.1:6379> config get loglevel
+1) "loglevel"
+2) "warning"
+```
+- redis.conf 파일을 읽어 loglevel을 warning으로 변경한 것을 확인할 수 있다.
+
 
 # 참고자료
 - 개발자를 위한 레디스 - 김가림
