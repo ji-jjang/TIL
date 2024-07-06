@@ -1,4 +1,4 @@
-name: Send Discord Message
+name: Daily Goal Keeper
 
 on:
   schedule:
