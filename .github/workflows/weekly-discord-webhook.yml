@@ -16,3 +16,4 @@ jobs:
           -H "Content-Type: application/json" \
           -d "{\"content\": \"주간 목표를 꼼꼼히 작성하여 공유해 주세요!\"}" \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
+

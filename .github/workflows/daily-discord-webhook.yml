@@ -1,0 +1,19 @@
+name: Send Discord Message
+
+on:
+  schedule:
+    - cron: '0 20 * * 1-6' # Asia/Seoul(UTC+9)
+  workflow_dispatch:
+
+jobs:
+  sendMessage:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Send Message to Discord Channel!
+        run: |
+          curl -X POST \
+          -H "Content-Type: application/json" \
+          -d "{\"content\": \"하루 목표를 작성하여 오전11시 59분까지 공유해 주세요!\"}" \
+          ${{ secrets.DAILY_DISCORD_WEBHOOK_URL }}
+
