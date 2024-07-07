@@ -2,7 +2,7 @@ name: Daily Goal Keeper
 
 on:
   schedule:
-    - cron: '0 20 * * 1-6' # Asia/Seoul(UTC+9)
+    - cron: '0 20 * * 0-5' # Asia/Seoul(UTC+9)
   workflow_dispatch:
 
 jobs:
