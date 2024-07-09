@@ -181,3 +181,114 @@ OK
 - 관계형 데이터베이스 테이블에 데이터를 저장할 때에는 미리 합의된 칼럼 데이터를 저장할 수 밖에 없는데, **hash에는 새로운 필드에 데이터를 저장**할 수 있기에 유연한 개발이 가능하다.
 
 ### 1) HSET
+- **hash에 아이템을 저장**한다. 한 번에 여러 필드-값 쌍을 저장할 수도 있다.
+```redis
+> HSET Space:123 Name "Happy"
+(integer) 1
+
+> HSET Space:123 TypeID 123
+(integer) 1
+
+> HSET Space:123 Version 2024
+(integer) 1
+
+> HSET Space:345 Name "HOHO" TypeID 345
+(integer) 2
+```
+
+### 2) HGET, HMGET, HGETALL
+- **HGET 커맨드로 키와 아이템 필드를 함께 입력**하여 hash에 저장된 데이터를 가져올 수 있다.
+- **HMGET 커맨드로 하나의 hasㅇ내에서 다양한 필드의 값**을 가져올 수 있다.
+- **HGETALL 커맨드는 hash 내의 모든 필드-값 쌍을 차례로 반환**한다.
+```redis
+> HGET Space:123 TypeID
+"123"
+
+> HMGET Space:123 Name TypeID
+1) "Happy"
+2) "123"
+
+> HMGET Space:345 Name TypeID
+1) "HOHO"
+2) "345"
+
+> HGETALL Space:123
+1) "Name"
+2) "Happy"
+3) "TypeID"
+4) "123"
+5) "Version"
+6) "2024"
+```
+
+## Set
+- **정렬되지 않은 문자열 모음**이다.
+- 하나의 Set에서 아이템은 중복해서 저장되지 않으며, 교집합, 합집합, 차집합 등의 집합 연산과 관련한 커맨드를 제공한다. 객체 간의 관계를 계산하거나 유일한 원소를 구해야 할 경우 유용하다.
+
+### SADD
+- **Set에 아이템을 저장하며, 한 번에 여러 개의 아이템을 저장**할 수 있다.
+- 저장되는 실제 아이템 수를 반환한다. 
+```redis
+> SADD myset A
+(integer) 1
+
+> SADD myset A A A A A B B B B C C C D D E
+(integer) 4
+```
+
+### SMEMBERS
+- **Set 자료 구조에 저장된 전체 아이템을 저장된 순서와 관계없이 출력**한다. 
+```redis
+> SMEMBERS myset
+1) "A"
+2) "B"
+3) "C"
+4) "D"
+5) "E"
+```
+
+### SREM, SPOP
+- **SREM 커맨드는 Set에서 원하는 데이터를 삭제**할 수 있다.
+- **SPOP 커맨드는 Set 내부의 아이템 중 랜덤으로 하나의 아이템을 반환하는 동시에 set에서 그 아이템을 삭제**한다.
+```redis
+> SREM myset B
+(integer) 1
+
+> SPOP myset
+"A"
+```
+
+### SUNION(합집합), SINTER(교집합), SDIFF(차집합)
+```redis
+> SADD 111 A B C D E
+(integer) 5
+> SADD 222 D E F G H
+(integer) 5
+
+> SINTER 111 222
+1) "D"
+2) "E"
+
+> SUNION 111 222
+1) "A"
+2) "B"
+3) "C"
+4) "D"
+5) "E"
+6) "F"
+7) "G"
+8) "H"
+
+> SDIFF 111 222
+1) "A"
+2) "B"
+3) "C"
+```
+
+## Sorted Set
+- 스코어 값에 따라 정렬되는 고유한 문자열의 집합이다.
+- 모든 아이템은 스코어-값 쌍을 가지며, 저장될 때부터 스코어 값으로 정렬돼 저장된다.
+- 같은 스코어를 가진 아이템은 데이터의 사전 순으로 정렬돼 저장된다.
+- **데이터가 중복 없이 저장되므로 Set과 유사**하며, **각 아이템은 스코어라는 데이터에 연결되어 있어 Hash와도 유사**하다. 또한 **모든 아이템은 스코어 순으로 정렬되어 list처럼 인덱스를 이용해 접근**할 수도 있다.
+
+### ZADD
