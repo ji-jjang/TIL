@@ -31,7 +31,7 @@
     - [2) ZRANGE](#2-zrange)
   - [6. 비트맵](#6-비트맵)
     - [SETBIT, GETBIT, BITFIELD, BITCOUNT](#setbit-getbit-bitfield-bitcount)
-    - [7. Hyperloglog](#7-hyperloglog)
+  - [7. Hyperloglog](#7-hyperloglog)
     - [PFADD, PFCOUNT](#pfadd-pfcount)
   - [8. Geospatial](#8-geospatial)
     - [GEOADD, GEOPOS, GEODIST, GEOSEARCH, BYRADIUS, BYBOX](#geoadd-geopos-geodist-geosearch-byradius-bybox)
@@ -497,7 +497,7 @@ ZRANGE key start stop [BYSCORE | BYLEX] [REV] [LIMIT offset count] [WITHSCORES]
 (integer) 4
 ```
 
-### 7. Hyperloglog
+## 7. Hyperloglog
 - 집합의 원소 개수인 **카디널리티를 추정**할 수 있는 자료 구조이다.
 - **대량 데이터에서 중복되지 않는 고유한 값을 집계**할 때 유용하게 사용할 수 있다.
 - Set과 달리 입력되는 데이터 그 자체를 저장하지 않고, 자체적인 방법으로 데이터를 변경해 처리한다. 따라서 저장되는 데이터 개수에 구애받지 않고 일정한 메모리를 유지할 수 있으며, 중복되지 않는 유일한 원소의 개수를 계산할 수 있다.
