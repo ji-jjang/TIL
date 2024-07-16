@@ -224,3 +224,41 @@ FROM tag_post
 WHERE tag_id IN (1,3) 
 GROUP BY post_id HAVING COUNT(tag_id) <= 2;
 ```
+
+### 7. 랜덤 데이터 출력 
+- 보통 관계형 데이터베이스에는 랜덤 데이터 추출을 사용할 때 `ORDER BY RAND()` 함수를 주로 사용한다. 이 함수는 쿼리의 결과값을 랜덤하게 정렬하지만, **조건 절에 맞는 모든 행을 읽은 뒤, 임시 테이블에 넣어 정렬한 다음 랜덤으로 limit에 해당할 때까지 데이터를 출력한다. 데이터가 1만 건 이상일 경우 부하가 많이 가는 연산**이다.
+- 레디스를 `RANDOMKEY` 커맨드를 사용하면 **$O(1)$에 전체 키 중 하나를 무작위로 반환**한다. 하지만 보통 하나의 레디스 인스턴스에 한 가지 종류의 데이터만 저장하지 않기 때문에 랜덤 키 추출은 크게 의미가 없을 수 있다.
+- `HRANDFIELD, SRANDMEMBER, ZRANDMEMBER` 커맨드는 각각 hash, set, sorted set에 저장된 아이템 중 랜덤한 아이템을 추출할 수 있다.
+
+```redis
+127.0.0.1:6379> HSET user:hash "ID:123" "juny"
+(integer) 1
+127.0.0.1:6379> HSET user:hash "ID:456" "jiny"
+(integer) 1
+127.0.0.1:6379> HRANDFIELD user:hash
+"ID:456"
+127.0.0.1:6379> HRANDFIELD user:hash 1 WITHVALUES
+1) "ID:123"
+2) "juny"
+127.0.0.1:6379> HRANDFIELD user:hash 1 WITHVALUES
+1) "ID:456"
+2) "jiny"
+127.0.0.1:6379> HRANDFIELD user:hash 1 WITHVALUES
+1) "ID:123"
+2) "juny"
+```
+- `COUNT` 옵션을 사용하면 원하는 개수만큼 랜덤 아이템이 반환되며, `WITHVALUES` 옵션을 사용하면 필드에 연결된 값도 함께 반환할 수 있다.
+- `COUNT` 옵션을 양수로 설정하면 중복되지 않는 랜덤 데이터가 반환되고, 음수로 설정하면 데이터가 중복해서 반환될 수 있다.
+```redis
+127.0.0.1:6379> HRANDFIELD user:hash -2 WITHVALUES
+1) "ID:123"
+2) "juny"
+3) "ID:123"
+4) "juny"
+
+127.0.0.1:6379> HRANDFIELD user:hash 2 WITHVALUES
+1) "ID:123"
+2) "juny"
+3) "ID:456"
+4) "jiny"
+```
