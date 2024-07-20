@@ -14,6 +14,6 @@ jobs:
         run: |
           curl -X POST \
           -H "Content-Type: application/json" \
-          -d "{\"content\": \"하루 목표를 작성하여 오전11시 59분까지 공유해 주세요!\"}" \
+          -d "{\"content\": \"하루 목표를 작성하여 오후 1시까지 공유해 주세요!\"}" \
           ${{ secrets.DAILY_DISCORD_WEBHOOK_URL }}
 
