@@ -1,3 +1,29 @@
+- [레디스 캐시로 사용하기](#레디스-캐시로-사용하기)
+  - [캐싱 전략](#캐싱-전략)
+    - [1. 읽기 전략 - look aside](#1-읽기-전략---look-aside)
+    - [2. 쓰기 전략](#2-쓰기-전략)
+      - [1) write through](#1-write-through)
+      - [2) cache invalidation](#2-cache-invalidation)
+      - [3) write behind(write back)](#3-write-behindwrite-back)
+    - [3. 만료시간 지정하기](#3-만료시간-지정하기)
+      - [레디스 키 삭제 방식](#레디스-키-삭제-방식)
+    - [4. 메모리 관리와 maxmemory-policy](#4-메모리-관리와-maxmemory-policy)
+      - [1) Noeviction](#1-noeviction)
+      - [2) LRU eviction (Least Recently Used)](#2-lru-eviction-least-recently-used)
+      - [3) LFU eviction](#3-lfu-eviction)
+      - [4) RANDOM eviction](#4-random-eviction)
+      - [5) volatile-ttl](#5-volatile-ttl)
+    - [5. 캐시 스탬피드 현상(Cache Stampede)](#5-캐시-스탬피드-현상cache-stampede)
+      - [1. 적절한 만료 시간 설정](#1-적절한-만료-시간-설정)
+      - [2. 선 계산](#2-선-계산)
+      - [3. PER 알고리즘 (Probabilistic Eary Recomputation)](#3-per-알고리즘-probabilistic-eary-recomputation)
+- [레디스 세션으로 사용하기](#레디스-세션으로-사용하기)
+  - [1. ALL-TO-ALL](#1-all-to-all)
+  - [2. 데이터베이스 세션 스토어](#2-데이터베이스-세션-스토어)
+  - [3. 레디스 세션 스토어](#3-레디스-세션-스토어)
+- [캐시와 세션의 차이](#캐시와-세션의-차이)
+
+
 # 레디스 캐시로 사용하기
 - **캐시란 데이터의 원본보다 더 빠르고 효율적으로 접근할 수 있는 임시 데이터 저장소를 의미**한다.
 - 다음 조건에서 캐시를 도입했을 때 성능을 효과적으로 개선할 수 있다.
