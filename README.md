@@ -12,6 +12,7 @@
 - [Servlet, Filter, Interceptor 개념 및 동작 방식](./spring/servlet_filter_interceptor.md)
 
 # Redis
+- [레디스 데이터 백업](./redis/data-backup.md)
 - [레디스 메시지 브로커](./redis/message-broker.md)
 - [레디스 캐시와 세션](./redis/cache-session.md)
 - [레디스 활용 사례](./redis/use_cases.md)
