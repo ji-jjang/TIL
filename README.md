@@ -11,6 +11,8 @@
 
 - [Servlet, Filter, Interceptor 개념 및 동작 방식](./spring/servlet_filter_interceptor.md)
 
+- [JVM, Garbage Collector 구조 및 동작 방식](./java/jvm_garbage_collector.md)
+
 # Redis
 - [레디스 데이터 백업](./redis/data-backup.md)
 - [레디스 메시지 브로커](./redis/message-broker.md)
