@@ -20,7 +20,8 @@
 
 - [비동기 처리와 이벤트 프로그래밍](https://velog.io/@ji-jjang/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC%EC%99%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D) 
 
-# JVM
+# JAVA, JVM
+- [자바 스레드 기본](https://velog.io/@ji-jjang/%EC%9E%90%EB%B0%94-%EC%8A%A4%EB%A0%88%EB%93%9C)
 
 - [JVM, Garbage Collector 구조 및 동작 방식](./java/jvm_garbage_collector.md)
 
