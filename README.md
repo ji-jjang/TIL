@@ -26,6 +26,7 @@
 - [JVM, Garbage Collector 구조 및 동작 방식](./java/jvm_garbage_collector.md)
 
 # Redis
+- [레디스 보안](./redis/security.md)
 - [레디스 클러스터](./redis/cluster.md)
 - [레디스 센티널](./redis/centinel)
 - [레디스 복제](./redis/replication.md)
