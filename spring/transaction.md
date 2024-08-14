@@ -30,37 +30,37 @@
 ### 1. REQUIRED(기본값)
 
 - 현재 트랜잭션이 존재하면 참여하고, 없으면 새로운 트랜잭션을 시작
-- `@Transactional(propagation = Propagation.*REQUIRED*)`
+- `@Transactional(propagation = Propagation.REQUIRED)`
 
-### 2. *REQUIRES_NEW*
+### 2. REQUIRES_NEW
 
 - 항상 새로운 트랜잭션을 시작하고, 기존 트랜잭션은 일시 중지
-- `@Transactional(propagation = Propagation.*REQUIRES_NEW*)`
+- `@Transactional(propagation = Propagation.REQUIRES_NEW)`
 
-### 3. *MANDATORY*
+### 3. MANDATORY
 
 - 현재 트랜잭션이 존재하지 않으면 예외를 발생
-- `@Transactional(propagation = Propagation.*MANDATORY*)`
+- `@Transactional(propagation = Propagation.MANDATORY)`
 
-### 4. *SUPPORTS*
+### 4. SUPPORTS
 
 - 현재 트랜잭션이 존재하면 참여하고, 없으면 트랜잭션 없이 실행
-- `@Transactional(propagation = Propagation.*SUPPORTS*)`
+- `@Transactional(propagation = Propagation.SUPPORTS)`
 
-### 5. *NOT_SUPPORTED*
+### 5. NOT_SUPPORTED
 
 - 트랜잭션 없이 실행하고, 현재 트랜잭션은 일시 중지
-- `@Transactional(propagation = Propagation.*NOT_SUPPORTED*)`
+- `@Transactional(propagation = Propagation.NOT_SUPPORTED)`
 
 ### 6. NEVER
 
 - 현재 트랜잭션이 존재하면 예외를 발생
-- `@Transactional(propagation = Propagation.*NEVER*)`
+- `@Transactional(propagation = Propagation.NEVER)`
 
 ### 7. NESTED
 
 - 중첩된 트랜잭션을 시작
-- `@Transactional(propagation = Propagation.*NESTED*)`
+- `@Transactional(propagation = Propagation.NESTED)`
 
 ## 격리 수준(isolation)
 
@@ -71,41 +71,51 @@
 ### 1. DEFAULT
 
 - 기본 데이터베이스의 격리 수준을 따름
-- `@Transactional(isolation = Isolation.*DEFAULT*)`
+- `@Transactional(isolation = Isolation.DEFAULT)`
 
 ### 2. READ_UNCOMMITTED
 
 - 가장 낮은 격리 수준, 변경 중인 데이터를 다른 트랜잭션에서 읽기 가능
-- `@Transactional(isolation = Isolation.*READ_UNCOMMITTED*)`
+- `@Transactional(isolation = Isolation.READ_UNCOMMITTED)`
 
 ### 3. READ_COMMITTED
 
 - 커밋된 데이터만 읽기 가능
-- `@Transactional(isolation = Isolation.*READ_COMMITTED*)`
+- `@Transactional(isolation = Isolation.READ_COMMITTED)`
 
 ### 4. REPEATABLE_READ
 
 - 트랜잭션이 시작된 후 변경된 데이터는 다른 트랜잭션에서 읽을 수 없음
-- `@Transactional(isolation = Isolation.*REPEATABLE_READ*)`
+- `@Transactional(isolation = Isolation.REPEATABLE_READ)`
 
 ### 5. SERIALIZABLE
 
 - 가장 높은 격리 수준, 모든 트랜잭션을 순차적으로 실행
-- `@Transactional(isolation = Isolation.*SERIALIZABLE*)`
+- `@Transactional(isolation = Isolation.SERIALIZABLE)`
 
-## **Timeout**
+### Dirty Read, Non-repeatable Read, Phantom Read
+- Dirty Read는 트랜잭션이 아직 커밋되지 않은 다른 트랜잭션의 변경사항을 읽는 경우
+- Non-Repeatable Read는 같은 트랜잭션 내에서 동일한 쿼리를 두 번 실행했을 때, 그 결과가 다른 경우
+- PhanTom Read는 트랜잭션이 동일한 범위 쿼리를 두 번 이상 실행할 때, 다른 트랜잭션이 데이터를 삽입하거나 삭제함으로써 결과 집합이 달라지는 현상
+- Read Uncommitted: Dirty Read 허용, Non-repeatable Read 허용.
+- Read Committed: Dirty Read 방지, Non-repeatable Read 허용.
+- Repeatable Read: Dirty Read 방지, Non-repeatable Read 방지.
+- Serializable: Dirty Read 방지, Non-repeatable Read 방지, Phantom Read 방지.
+
+
+## Timeout
 
 - 트랜잭션이 설정된 시간 내에 완료되지 않으면 자동으로 롤백
 - 초 단위로 설정
 - `@Transactional(timeout = 30)`
 
-## **ReadOnly**
+## ReadOnly
 
 - 트랜잭션이 데이터 읽기만 할 때 최적화를 위해 사용
 - 읽기 전용 트랜잭션은 데이터베이스의 특정 최적화를 활용
 - `@Transactional(readOnly = true)`
 
-## **rollbackFor / noRollbackFor**
+## rollbackFor / noRollbackFor
 
 - 특정 예외가 발생했을 때 트랜잭션을 롤백하거나 롤백하지 않도록 설정
 - rollbackFor
