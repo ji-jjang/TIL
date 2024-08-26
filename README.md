@@ -27,6 +27,9 @@
 
 - [JVM, Garbage Collector 구조 및 동작 방식](./java/jvm_garbage_collector.md)
 
+# MySQL
+- [MySQL 설정](./mysql/settings.md)
+
 # Redis
 - [레디스 운영](./redis/operation.md)
 - [레디스 클라이언트 관리](./redis/client-management.md)
