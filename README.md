@@ -4,7 +4,7 @@
 
 - [값 컬렉션, 어떻게 사용할까?](https://velog.io/@ji-jjang/%EA%B0%92-%EC%BB%AC%EB%A0%89%EC%85%98-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C)
 
-- [JPA 연관관계 편의 메서드 작성하기](https://velog.io/@ji-jjang/JPA-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%ED%8E%B8%EC%9D%98-%EB%A9%94%EC%84%9C%EB%93%9C-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0)
+- :pushpin:[JPA 연관관계 편의 메서드 작성하기](https://velog.io/@ji-jjang/JPA-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%ED%8E%B8%EC%9D%98-%EB%A9%94%EC%84%9C%EB%93%9C-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0)
 
 # Spring
 
