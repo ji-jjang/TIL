@@ -10,7 +10,7 @@
 
 - [JDBC와 Spring JDBC (JdbcTemplate)](https://velog.io/@ji-jjang/JDBC%EC%99%80-Spring-JDBC-JdbcTemplate)
 
-- :pushpin:[Spring Batch 구조 및 동작 방법](https://velog.io/@ji-jjang/Spring-Batch-%EA%B5%AC%EC%A1%B0-%EB%B0%8F-%EB%8F%99%EC%9E%91-%EB%B0%A9%EB%B2%95)
+- 📌[Spring Batch 구조 및 동작 방법](https://velog.io/@ji-jjang/Spring-Batch-%EA%B5%AC%EC%A1%B0-%EB%B0%8F-%EB%8F%99%EC%9E%91-%EB%B0%A9%EB%B2%95)
 
 - [왜 mapstruct는 boolean 타입인 is 접두사가 붙은 필드를 변환하지 못할까?](https://velog.io/@ji-jjang/%EC%99%9C-mapstruct%EB%8A%94-boolean-%ED%83%80%EC%9E%85%EC%9D%B8-is-%EC%A0%91%EB%91%90%EC%82%AC%EA%B0%80-%EB%B6%99%EC%9D%80-%ED%95%84%EB%93%9C%EB%A5%BC-%EB%B3%80%ED%99%98%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%A0%EA%B9%8C)
 
@@ -48,11 +48,11 @@
 - [Controller, Repository 계층 단위테스트 하기 2/2)](https://velog.io/@ji-jjang/Controller-Repository-%EA%B3%84%EC%B8%B5-%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%95%98%EA%B8%B0-22)
 
 # Architecture
-- :pushpin:[MSA와 Spring Cloud MSA](https://velog.io/@ji-jjang/MSA%EC%99%80-Spring-Cloud-MSA)
+- 📌[MSA와 Spring Cloud MSA](https://velog.io/@ji-jjang/MSA%EC%99%80-Spring-Cloud-MSA)
 
 - [CQRS가 필요한 이유](https://velog.io/@ji-jjang/CQRS%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0)
 
-- :pushpin:[비동기 처리와 이벤트 프로그래밍](https://velog.io/@ji-jjang/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC%EC%99%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D) 
+- 📌[비동기 처리와 이벤트 프로그래밍](https://velog.io/@ji-jjang/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC%EC%99%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D) 
 
 # JAVA, JVM
 - [자바 스레드와 스레드풀](https://velog.io/@ji-jjang/%EC%9E%90%EB%B0%94-%EC%8A%A4%EB%A0%88%EB%93%9C)
@@ -60,6 +60,8 @@
 - [JVM, Garbage Collector 구조 및 동작 방식](./java/jvm_garbage_collector.md)
 
 # MySQL
+- [MySQL 트랜잭션과 잠금](./mysql/transaction.md)
+- 📌[MySQL 엔진 아키텍처 및 InnoDB 스토리지 엔진 아키텍처](./mysql/architecture.md)
 - [MySQL 설정](./mysql/settings.md)
 
 # Redis
@@ -146,3 +148,7 @@
 
 # Frontend
 - [Axios Interceptor를 이용해 액세스 토큰 갱신하기](https://velog.io/@ji-jjang/Axios-Interceptor%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4-%EC%95%A1%EC%84%B8%EC%8A%A4-%ED%86%A0%ED%81%B0-%EA%B0%B1%EC%8B%A0%ED%95%98%EA%B8%B0)
+
+# 개발환경 설정
+- [Intelij Idea 터미널로 열기]
+- [Vim]
