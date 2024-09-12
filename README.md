@@ -60,7 +60,7 @@
 - [JVM, Garbage Collector 구조 및 동작 방식](./java/jvm_garbage_collector.md)
 
 # MySQL
-- [MySQL 트랜잭션과 잠금](./mysql/transaction.md)
+- 📌[MySQL 트랜잭션과 잠금](./mysql/transaction.md)
 - 📌[MySQL 엔진 아키텍처 및 InnoDB 스토리지 엔진 아키텍처](./mysql/architecture.md)
 - [MySQL 설정](./mysql/settings.md)
 
