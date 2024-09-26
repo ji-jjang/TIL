@@ -90,6 +90,8 @@
 - [레디스 기초 - 특징, 환경, 실행](./redis/characteristic.md)
 
 # Infra, CI/CD
+- 📌[Nginx로 로드밸런싱 적용해보기](https://velog.io/@ji-jjang/Nginx%EB%A1%9C-%EB%A1%9C%EB%93%9C-%EB%B0%B8%EB%9F%B0%EC%8B%B1Load-Balancing-%EC%A0%81%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0)
+
 - [github action으로 마이그레이션하기(gitlab)](https://velog.io/@ji-jjang/github-action%EC%9C%BC%EB%A1%9C-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98%ED%95%98%EA%B8%B0gitlab)
   
 - [Nginx 새로고침 시 동적 라우팅 안되는 문제](https://velog.io/@ji-jjang/Nginx-dynamic-routing-not-working-on-nginx-refresh)
